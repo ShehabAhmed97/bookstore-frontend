@@ -5,6 +5,7 @@ import {
   Card,
   CardBody,
   CardSubtitle,
+  CardText,
   CardTitle,
   List,
   Spinner,
@@ -15,6 +16,8 @@ export function Books() {
   const [booksList, setBooksList] = useState(null);
   const [isLoading, setIsloading] = useState(true);
   const [error, setError] = useState(null);
+
+  const [showDesc, setShowDesc] = useState({});
 
   const deleteBook = (e) => {
     const id = e.target.id;
@@ -35,10 +38,18 @@ export function Books() {
   useEffect(() => {
     apiClient.get("/book").then(({ data }) => {
       setIsloading(false);
-      if (data.responseCode === "SUCCESS") setBooksList(data.result);
-      else setError(data.message);
+      if (data.responseCode === "SUCCESS") {
+        setBooksList(data.result);
+
+        const newShowDesc = {};
+
+        data.result.forEach((book) => (newShowDesc[book._id] = false));
+        setShowDesc(newShowDesc);
+      } else setError(data.message);
     });
   }, []);
+
+  console.log(showDesc);
 
   if (isLoading)
     return (
@@ -54,6 +65,7 @@ export function Books() {
         <Link to="add-new">Add New</Link>
       </Button>
       <List type="unstyled">
+
         {booksList.map((book) => (
           <Card
             style={{
@@ -66,6 +78,34 @@ export function Books() {
               <CardSubtitle className="mb-2 text-muted" tag="h6">
                 ${book.price}
               </CardSubtitle>
+
+              <CardText>
+                {showDesc[book._id] ? (
+                  <span>
+                    {book.desc}
+                    <span
+                      style={{ color: "blue", cursor: "pointer" }}
+                      onClick={() =>
+                        setShowDesc((prev) => ({ ...prev, [book._id]: false }))
+                      }
+                    >
+                      read less
+                    </span>
+                  </span>
+                ) : (
+                  <span>
+                    {book.desc.slice(0, 10)} ...
+                    <span
+                      style={{ color: "blue", cursor: "pointer" }}
+                      onClick={() =>
+                        setShowDesc((prev) => ({ ...prev, [book._id]: true }))
+                      }
+                    >
+                      read more
+                    </span>
+                  </span>
+                )}
+              </CardText>
 
               <div className="d-flex">
                 <Button size="sm" color="info" className="me-2">
