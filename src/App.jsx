@@ -5,6 +5,7 @@ import "./App.css";
 import { Books } from "../Pages/Books/Books";
 import { Navbar, NavbarBrand } from "reactstrap";
 import { AddBook } from "../Pages/AddBook/AddBook";
+import { EditBook } from "../Pages/EditBook/EditBook";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Books />} />
         <Route path="/add-new" element={<AddBook />} />
+        <Route path="/edit-book/:id" element={<EditBook />} />
       </Routes>
     </>
   );

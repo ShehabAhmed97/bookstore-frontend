@@ -69,7 +69,7 @@ export function Books() {
 
               <div className="d-flex">
                 <Button size="sm" color="info" className="me-2">
-                  Edit
+                  <Link to={`/edit-book/${book._id}`}>Edit</Link>
                 </Button>
                 <Button
                   size="sm"
