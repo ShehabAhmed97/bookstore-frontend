@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Books } from "../Pages/Books/Books";
 import { Navbar, NavbarBrand } from "reactstrap";
+import { AddBook } from "../Pages/AddBook/AddBook";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       </Navbar>
       <Routes>
         <Route path="/" element={<Books />} />
+        <Route path="/add-new" element={<AddBook />} />
       </Routes>
     </>
   );

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   Button,
   Card,
@@ -49,6 +50,9 @@ export function Books() {
 
   return (
     <div style={{ padding: "20px" }}>
+      <Button color="primary" size="sm" className="mb-2">
+        <Link to="add-new">Add New</Link>
+      </Button>
       <List type="unstyled">
         {booksList.map((book) => (
           <Card
